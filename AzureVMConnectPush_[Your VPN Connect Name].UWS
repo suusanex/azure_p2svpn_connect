@@ -1,0 +1,19 @@
+isTargetWindowExist = 0
+while true
+SLEEP(1)
+wndid = GETID("SPC-App-Servers-NW","IConnMgr Class")
+IF wndid<>-1 THEN
+	isTargetWindowExist = 1
+	IFB !STATUS(wndid, ST_ACTIVE) // ウィンドウがアクティブかチェック
+	 CTRLWIN(wndid, ACTIVATE) // アクティブにする
+	ENDIF
+	SLEEP(1)
+	wndx = STATUS(wndid, ST_X)
+	wndy = STATUS(wndid, ST_Y)
+	BTN(LEFT, CLICK, wndx+60, wndy+389)
+ELSE
+	IF isTargetWindowExist<>0 THEN //対象ウインドウ発見後にそのウインドウがなくなったら、「処理がうまくいってウインドウが閉じた」と判断して終了
+		BREAK
+	ENDIF
+ENDIF
+wend
